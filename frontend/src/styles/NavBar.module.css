@@ -1,0 +1,39 @@
+.navBarCont{
+    height: auto;
+    width: auto;
+    background-color: #1f2833;
+    padding: 10px;
+    border-radius: 3px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logs{
+    color: #66fcf1;margin-right: 15px;}
+.dashboard{
+    margin-right: 15px;color: #66fcf1;
+}
+.access{
+    color: #66fcf1;margin-right: 15px;
+}
+.register{
+    color: #66fcf1;margin-right: 15px;
+}
+
+.logoutBtn, .login{
+    border-radius: 7px;
+    font-size: 14px;
+    padding: 0px 15px;
+    padding-top: 3px;
+    border: none;
+    color: #66fcf1;
+    background-color: #1f2833;
+    transition: background 0.3s ease-in-out;
+}
+
+.logoutBtn:hover, .login:hover{
+    color: rgb(144, 131, 131);
+    background-color: #66fcf1;
+    cursor: pointer;
+}

@@ -1,0 +1,62 @@
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f9f9fb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container{
+  background-color: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h4{
+    font-weight: 600;
+}
+
+.submit_btn{
+  color: #ffffff;
+  background-color: #8b8b8b;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit_btn:hover{
+    background-color: #595959;
+}
+
+.spinner{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 8px;
+    border: 3px solid #fff;
+    border-top: 3px solid #007bff ;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite ;
+
+}
+
+@keyframes spin{
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}
+
+.Note{
+    padding: 20px;
+    color: grey;
+    font-size: 12px;
+}

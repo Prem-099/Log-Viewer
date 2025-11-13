@@ -27,7 +27,7 @@ def create_access_token(data:dict,expires:int = 30):
 
 def create_sdk_token(user_id:int, source_id: int, source_name: str, expire_hours: int = 1):
     """
-    Creating a long lived JWT for SDK use
+    Creating a short lived JWT for SDK use
     """
     payload = {
         "sub": source_name,

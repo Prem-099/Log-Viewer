@@ -8,7 +8,7 @@ import LogViewer from "./components/LogViewer/LogViewer";
 import LoginPage from "./pages/login";
 import SignUpPage from "./pages/signup";
 import AccessToken from "./components/AccessToken/AccessToken";
-import SourceRegister from "./components/SourceRegister/SourceRegister";
+import SourceManagenment from "./components/SourceRegister/SourceRegister";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
           <Route path="/logs" element={<LogViewer />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/accesstoken" element={<AccessToken/>}/>
-          <Route path="/register-source" element={<SourceRegister/>}/>
+          <Route path="/source-management" element={<SourceManagenment/>}/>
         </Routes>
 
       </LogProvider>

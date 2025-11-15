@@ -12,3 +12,7 @@ class SourceOut(BaseModel):
 
     class Config:
         orm_mode = True
+
+class SourceDelete(BaseModel):
+    source_id : int
+    token: str

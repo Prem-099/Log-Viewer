@@ -27,7 +27,7 @@ export default function NavBar(){
                     <Link to="/logs" className={s.logs} >Logs</Link>
                     <Link to="/dashboard" className={s.dashboard} >Dashboard</Link>
                     <Link to="/accesstoken" className={s.access} >API Key</Link>
-                    <Link to="/register-source" className={s.register}>Register Source </Link>
+                    <Link to="/source-management" className={s.register}>Source Management </Link>
                     <Link to="/usage-docs" style={{color:"#66fcf1"}}>Docs</Link>
                 </div>
                 {user ? <button className={s.logoutBtn} onClick={handleLogout} >Logout</button> : 

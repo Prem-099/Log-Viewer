@@ -1,4 +1,4 @@
-from typing import Dict
+import io,json,csv
 from sqlalchemy import select
 from models.log_model import Log
 from models.source import Source
@@ -6,7 +6,7 @@ from websocket.ws_manager import ConnectionManager
 from sqlalchemy.ext.asyncio import AsyncSession
 from db.database import get_db, AsyncSessionLocal
 from middleware.verify_jwtToken import verify_jwt
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, HTTPException
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, HTTPException, Response
 
 router = APIRouter(prefix="/logs", tags=["Logs"])
 manager = ConnectionManager()
@@ -102,6 +102,37 @@ async def get_log_history(
         }
         for log in logs
     ]
+
+@router.get("/history/export")
+async def export_logs(
+    source_id: int = None,
+    format: str = "csv",
+    db: AsyncSession = Depends(get_db),
+    payload: dict = Depends(verify_jwt),
+):
+    user_id = payload.get("user_id")
+    query = select(Log).where(Log.user_id == user_id)
+    if source_id:
+        query = query.where(Log.source_id == source_id)
+    query = query.order_by(Log.timestamp.desc())
+    result = await db.execute(query)
+    logs = result.scalars().all()
+
+    if format == "json":
+        content = json.dumps([log.to_dict() for log in logs])
+        media_type = "application/json"
+        filename = "logs.json"
+    else:
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["id", "timestamp", "source", "level", "message"])
+        for log in logs:
+            writer.writerow([log.id, log.timestamp, log.source, log.level, log.message])
+        content = output.getvalue()
+        media_type = "text/csv"
+        filename = "logs.csv"
+
+    return Response(content, media_type=media_type, headers={"Content-Disposition": f"attachment; filename={filename}"})
 
 
 @router.post("/send")

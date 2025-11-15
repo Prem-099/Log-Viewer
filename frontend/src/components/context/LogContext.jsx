@@ -58,7 +58,7 @@ export const LogProvider = ({ children }) => {
 
     fetchHistory();
 
-    // 🧩 WebSocket connection (per source)
+    // WebSocket connection (per source)
     const ws = new WebSocket(`ws://127.0.0.1:8000/logs/ws?token=${token}`);
 
     ws.onopen = () => console.log("✅ Connected to WebSocket");
@@ -83,6 +83,7 @@ export const LogProvider = ({ children }) => {
       value={{
         logs,
         sources,
+        setSources,
         selectedSource,
         setSelectedSource,
       }}

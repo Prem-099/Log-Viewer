@@ -1,11 +1,11 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, delete 
 from models.source import Source
 from db.database import get_db
 from utils.api_key import generate_api_key, hash_api_key
 from middleware.verify_jwtToken import verify_jwt
-from schemas.source import SourceCreate, SourceOut
+from schemas.source import SourceCreate, SourceOut, SourceDelete
 from utils.create_jwtToken import create_sdk_token
 
 router = APIRouter(prefix="/sources", tags=["Sources"])
@@ -27,11 +27,11 @@ async def register_source(
     if exists:
         raise HTTPException(status_code=409, detail="Source name already exists.Try different name.Like adding some random characters")
 
+    user_id = user["user_id"]
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Invalid user token")
+    
     try:
-        
-        user_id = user["user_id"]
-        if not user_id:
-            raise HTTPException(status_code=401, detail="Invalid user token")
 
         # Generate and hash API key
         api_key = generate_api_key()
@@ -77,3 +77,25 @@ async def list_sources(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching sources: {str(e)}")
 
+@router.post("/delete")
+async def delete_source(
+    payload: SourceDelete,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Delete a source owned by the authenticated user.
+    """
+    user = await verify_jwt(payload.token)
+    user_id = user["user_id"]
+
+    res = await db.execute(select(Source).where(Source.id == payload.source_id))
+    source = res.scalars().first()
+
+    if not source:
+        raise HTTPException(status_code=404, detail="Source not found")
+
+    if source.user_id != user_id:
+        raise HTTPException(status_code=403, detail="You do not own this source")
+
+    await db.execute(delete(Source).where(Source.id == payload.source_id))
+    await db.commit()

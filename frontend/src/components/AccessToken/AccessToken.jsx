@@ -80,8 +80,8 @@ export default function AccessToken(){
                     </button>
                     {feedback && (
                         <div style={{ marginTop: "10px" }}>
-                            <p><strong>{feedback}</strong></p>
-                            <button  onClick={handleCopy}>Copy API Key</button>
+                            <p>{feedback}</p>
+                            <button className={s.copy_btn} onClick={handleCopy}>Copy</button>
                         </div>
                     )}
 

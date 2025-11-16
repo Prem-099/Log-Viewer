@@ -90,10 +90,11 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .copyBtn:hover {
+  padding: 8px 20px;
   background-color: #218838;
 }
 

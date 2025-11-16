@@ -9,6 +9,7 @@ import LoginPage from "./pages/login";
 import SignUpPage from "./pages/signup";
 import AccessToken from "./components/AccessToken/AccessToken";
 import SourceManagenment from "./components/SourceRegister/SourceRegister";
+import LogManager from "./components/LogManagement/logManagement";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/accesstoken" element={<AccessToken/>}/>
           <Route path="/source-management" element={<SourceManagenment/>}/>
+          <Route path="/log-management" element={<LogManager/>}/>
         </Routes>
 
       </LogProvider>

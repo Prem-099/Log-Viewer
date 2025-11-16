@@ -60,3 +60,21 @@ h4{
     color: grey;
     font-size: 12px;
 }
+
+.copy_btn{
+  margin-top: 15px;
+  border: None;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 5px 30px;
+  border-radius: 20px;
+  background-color: rgb(63, 239, 74);
+  transition: all 0.3s ease-in-out ;
+}
+
+.copy_btn:hover{
+  font-size: 17px;
+  padding: 10px 50px;
+  background-color: #26c103;
+
+}

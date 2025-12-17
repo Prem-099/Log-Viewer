@@ -44,7 +44,7 @@ const LogViewer = () => {
     const selected = sources.find((s) => s.id === selectedId);
     if (selected) {
       setSelectedSource(selected);
-      toast.success(`✅ Selected App: ${selected.name}`);
+      toast.success(`Selected App: ${selected.name}`);
     }
   };
 

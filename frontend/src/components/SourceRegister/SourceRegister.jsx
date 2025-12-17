@@ -78,106 +78,109 @@ const SourceManagement = () => {
 
   return (
     <>
-      <NavBar />
-      <div className={s.container}>
-        <h2>🔧 Source Management</h2>
+      <div className={s.pagewrapper}>
 
-        {/* Add Source Dropdown */}
-        <div className={s.dropdown}>
-          <button onClick={() => setShowAdd(!showAdd)} className={s.dropdown_btn}>
-            {showAdd ? "⬆ Hide Add Source" : "⬇ Add Source"}
-          </button>
-          {showAdd && (
-            <form onSubmit={handleRegister} className={s.form}>
-              <input
-                className={s.source_input}
-                type="text"
-                placeholder="Enter source name"
-                value={sourcename}
-                onChange={(e) => setSourcename(e.target.value)}
-                required
-              />
-              <button
-                className={s.submit_btn}
-                type="submit"
-                disabled={adding || !sourcename}
-              >
-                {adding ? <>Adding <span className={s.spinner}></span></> : "Add"}
-              </button>
-              {responseData && (
-                <div className={s.responseBox}>
-                    <h3>Source Registered Successfully!</h3>
-                    <p><strong>Source ID:</strong> {responseData.source_id}</p>
-                    <p className={s.api_key}><strong>API Key:</strong> {responseData.api_key}</p>
-                    <button
-                    onClick={() => {
-                        navigator.clipboard.writeText(responseData.api_key);
-                        toast.success("API key copied!");
-                    }}
-                    className={s.copyBtn}
-                    >
-                    Copy API Key
-                    </button>
-                    <p className={s.note}>Note: API Key will be shown only once. Store it securely.</p>
-                </div>
-                )}
-            </form>
-          )}
-        </div>
+        <NavBar />
+        <div className={s.container}>
+          <h2>Source Management</h2>
 
-        {/* Delete Source Dropdown */}
-        <div className={s.dropdown}>
-          <button onClick={() => setShowDelete(!showDelete)} className={s.dropdown_btn}>
-            {showDelete ? "⬆ Hide Delete Source" : "⬇ Delete Source"}
-          </button>
-          {showDelete && (
-            <div className={s.source_list}>
-              {sources.length === 0 ? (
-                <p style={{color: grey}}>No sources to delete.</p>
-              ) : (
-                <ul>
-                  {sources.map((source) => (
-                    <li key={source.id} className={s.source_item}>
-                      <span>{source.name}</span>
+          {/* Add Source Dropdown */}
+          <div className={s.dropdown}>
+            <button onClick={() => setShowAdd(!showAdd)} className={s.dropdown_btn}>
+              {showAdd ? "⬆ Hide Add Source" : "⬇ Add Source"}
+            </button>
+            {showAdd && (
+              <form onSubmit={handleRegister} className={s.form}>
+                <input
+                  className={s.source_input}
+                  type="text"
+                  placeholder="Enter source name"
+                  value={sourcename}
+                  onChange={(e) => setSourcename(e.target.value)}
+                  required
+                />
+                <button
+                  className={s.submit_btn}
+                  type="submit"
+                  disabled={adding || !sourcename}
+                >
+                  {adding ? <>Adding <span className={s.spinner}></span></> : "Add"}
+                </button>
+                {responseData && (
+                  <div className={s.responseBox}>
+                      <h3>Source Registered Successfully!</h3>
+                      <p><strong>Source ID:</strong> {responseData.source_id}</p>
+                      <p className={s.api_key}><strong>API Key:</strong> {responseData.api_key}</p>
                       <button
-                        className={s.delete_btn}
-                        onClick={() => handleDelete(source.id)}
-                        disabled={deletingId === source.id}
+                      onClick={() => {
+                          navigator.clipboard.writeText(responseData.api_key);
+                          toast.success("API key copied!");
+                      }}
+                      className={s.copyBtn}
                       >
-                        {deletingId === source.id ? (
-                          <span className={s.spinner}></span>
-                        ) : (
-                          "Delete"
-                        )}
+                      Copy API Key
                       </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
-        </div>
+                      <p className={s.note}>Note: API Key will be shown only once. Store it securely.</p>
+                  </div>
+                  )}
+              </form>
+            )}
+          </div>
 
-        {/* List Source Dropdown */}
-        <div className={s.dropdown}>
-          <button onClick={() => setShowList(!showList)} className={s.dropdown_btn}>
-            {showList ? "⬆ Hide List Sources" : "⬇ List Sources"}
-          </button>
-          {showList && (
-            <div className={s.source_list}>
-              {sources.length === 0 ? (
-                <p>No sources found.</p>
-              ) : (
-                <ul>
-                  {sources.map((source) => (
-                    <li key={source.id} className={s.source_item}>
-                      <strong>{source.name}</strong> — ID: {source.id}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
+          {/* Delete Source Dropdown */}
+          <div className={s.dropdown}>
+            <button onClick={() => setShowDelete(!showDelete)} className={s.dropdown_btn}>
+              {showDelete ? "⬆ Hide Delete Source" : "⬇ Delete Source"}
+            </button>
+            {showDelete && (
+              <div className={s.source_list}>
+                {sources.length === 0 ? (
+                  <p style={{color: "grey"}}>No sources to delete.</p>
+                ) : (
+                  <ul>
+                    {sources.map((source) => (
+                      <li key={source.id} className={s.source_item}>
+                        <span>{source.name}</span>
+                        <button
+                          className={s.delete_btn}
+                          onClick={() => handleDelete(source.id)}
+                          disabled={deletingId === source.id}
+                        >
+                          {deletingId === source.id ? (
+                            <span className={s.spinner}></span>
+                          ) : (
+                            "Delete"
+                          )}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* List Source Dropdown 
+          <div className={s.dropdown}>
+            <button onClick={() => setShowList(!showList)} className={s.dropdown_btn}>
+              {showList ? "⬆ Hide List Sources" : "⬇ List Sources"}
+            </button>
+            {showList && (
+              <div className={s.source_list}>
+                {sources.length === 0 ? (
+                  <p>No sources found.</p>
+                ) : (
+                  <ul>
+                    {sources.map((source) => (
+                      <li key={source.id} className={s.source_item}>
+                        <strong>{source.name}</strong> — ID: {source.id}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>*/}
         </div>
       </div>
     </>

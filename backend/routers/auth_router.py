@@ -28,3 +28,5 @@ async def login(user: LoginUser,db:AsyncSession = Depends(get_db)):
         "token_type": "bearer",
         "username": user.username
     }
+
+  

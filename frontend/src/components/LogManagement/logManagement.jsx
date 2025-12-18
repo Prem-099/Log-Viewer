@@ -2,9 +2,12 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import NavBar from "../Navbar";
 import s from "../../styles/LogManager.module.css";
+import { useLogs } from "../context/LogContext";
 
 const LogManager = () => {
   const [customCount, setCustomCount] = useState("");
+  const [selectedSource, setSelectedsource] = useState("");
+  const { sources } = useLogs();
 
   return (
     <div className={s.pageWrapper}>
@@ -21,6 +24,16 @@ const LogManager = () => {
             <h3>Export Logs</h3>
             <p className={s.description}>Download a local copy of your source activity.</p>
             <div className={s.controls}>
+              {/* Source */}
+              <select className={s.dropdown}>
+                <option value="def">Select Source</option>
+                {sources.map((src) => (
+                  <option key={src.id} value={src.id}>
+                    {src.name}
+                  </option>
+                ))}
+              </select>
+              {/* Format */}
               <select className={s.dropdown}>
                 <option value="def">Select Format</option>
                 <option value="csv">CSV Document</option>

@@ -34,7 +34,7 @@ h4{
 
 .submit_btn{
   color: #ffffff;
-  background-color: #8b8b8b;
+  background-color: #45a29e;
   width: 100%;
   padding: 0.75rem;
   border: none;
@@ -46,7 +46,7 @@ h4{
 }
 
 .submit_btn:hover{
-    background-color: #595959;
+    background-color: #66fcf1;
 }
 
 .spinner{

@@ -142,3 +142,4 @@ const LogViewer = () => {
 };
 
 export default LogViewer;
+

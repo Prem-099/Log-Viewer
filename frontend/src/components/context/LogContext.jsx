@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 const LogContext = createContext();
 
@@ -8,8 +9,9 @@ export const LogProvider = ({ children }) => {
   const [sources, setSources] = useState([]);
   const [selectedSource, setSelectedSource] = useState(null);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
+  const { token, user } = useAuth();
+  //const token = localStorage.getItem("token");
+  //const user = localStorage.getItem("user");
 
   useEffect(() => {
     const fetchSources = async () => {
@@ -47,7 +49,7 @@ export const LogProvider = ({ children }) => {
         const data = await res.json();
         if (res.ok) {
           setLogs(data.reverse());
-          console.log("📜 Loaded log history:", data);
+          console.log("Loaded log history:", data);
         } else {
           console.error("❌ Failed to fetch logs:", data);
         }

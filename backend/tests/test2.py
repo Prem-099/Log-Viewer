@@ -32,7 +32,7 @@ async def login_user(session, username, password):
 
 async def register_source(session, token, source_name):
     headers = {"Authorization": f"Bearer {token}"}
-    payload = {"name": source_name}
+    payload = {"name": source_name,"token": token}
     async with session.post(f"{BASE_URL}/sources/register", json=payload, headers=headers) as res:
         data = await res.json()
         if res.status == 200:

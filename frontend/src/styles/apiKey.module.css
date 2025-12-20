@@ -89,3 +89,20 @@ h4{
   background-color: #26c103;
 
 }
+
+.dropdown{
+  width: auto;
+  font-family: monospace;
+  border-radius: 5px;
+  border-style:dashed;
+  text-align: center;
+  background-color: #0b0c10;
+  color: white;
+  padding: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.options{
+  color: whitesmoke;
+  background-color:#1f2833;
+}

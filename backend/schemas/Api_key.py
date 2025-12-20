@@ -9,3 +9,7 @@ class LoginToken(BaseModel):
 
 class JWTtoken(BaseModel):
     token: str
+
+class RegenerateAPIKeyRequest(BaseModel):
+    token: str
+    source_id: int

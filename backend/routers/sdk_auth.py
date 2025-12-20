@@ -9,6 +9,7 @@ from models.source import Source
 from models.apikey_log import APIKeyLog
 from schemas.Api_key import LoginToken, JWTtoken
 from schemas.Api_key import APIKeyRequest
+from schemas.Api_key import RegenerateAPIKeyRequest
 from middleware.verify_jwtToken import verify_jwt, verify
 from utils.api_key import generate_api_key, hash_api_key
 from utils.create_jwtToken import create_sdk_token
@@ -62,11 +63,10 @@ async def revoke_api_key(token: dict = Depends(verify_jwt),db:AsyncSession = Dep
 
 @router.post("/regenerate-api-key")
 async def regenerate_api_key(
-    token : JWTtoken,
+    req: RegenerateAPIKeyRequest,
     db: AsyncSession = Depends(get_db)
 ):
-    payload = await verify(token.token)
-    
+    payload = await verify(req.token)
     
     # --- Rate Limiting ---  
     
@@ -81,11 +81,12 @@ async def regenerate_api_key(
 
     if recent_regens >= 3:
         raise HTTPException(status_code=429, detail="API key regeneration limit reached for today.") """
+    
     # -- Generation and saving to the db --- 
 
     try:
         
-        sources = await db.execute(select(Source).where(Source.user_id == payload["user_id"]))
+        sources = await db.execute(select(Source).where(Source.id == req.source_id, Source.user_id == payload["user_id"]))
         source = sources.scalars().first()
         if not source:
             raise HTTPException(status_code=404, detail="Source does not exist!")
@@ -100,6 +101,8 @@ async def regenerate_api_key(
 
         return {"api_key": raw_key,"message": f"API Key regeneareted successfully for {source.name}"}
 
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Regeneration failed..: {e}")
-    
+        raise HTTPException(status_code=500, detail="Regeneration failed")
+        

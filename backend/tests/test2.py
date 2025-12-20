@@ -61,7 +61,7 @@ async def send_log_via_ws(sdk_token):
 
             test_log = {
                 "level": "info",
-                "message": "Test log message from SDK!"
+                "message": "Test log message2 from SDK!"
             }
 
             await websocket.send(json.dumps(test_log))
@@ -71,7 +71,7 @@ async def send_log_via_ws(sdk_token):
                 response = await asyncio.wait_for(websocket.recv(), timeout=3)
                 print(f"📥 Server response: {response}")
             except asyncio.TimeoutError:
-                print("⚠️ No server response (might be okay if broadcast is one-way)")
+                print("⚠️ No server response ")
 
     except Exception as e:
         print(f"❌ WebSocket connection failed: {e}")
